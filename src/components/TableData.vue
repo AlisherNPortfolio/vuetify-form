@@ -22,7 +22,7 @@
         </v-row>
       </template>
     </v-data-table>
-    <v-btn color="primary mr-2" @click="sendBack(4)">Keyingi</v-btn>
+    <v-btn color="primary mr-2" @click="sendBack(4)">Jo'natish</v-btn>
     <v-btn text @click="sendBack(2)">Orqaga</v-btn>
     <v-overlay :value="openModal" class="modal">
       <v-btn icon @click="openModal = false" style="display: flex;">

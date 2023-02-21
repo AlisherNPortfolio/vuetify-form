@@ -39,7 +39,10 @@
                     @next="nextStep"
                   ></additional-data>
                 </v-stepper-content>
-                <v-stepper-step step="4">View setup instructions</v-stepper-step>
+                <v-stepper-step step="4">
+                  Hisob
+                  <small>Bank ma'lumotlari</small>
+                </v-stepper-step>
                 <v-stepper-content step="4">
                   <table-data :form="form" :rules="rules" @next="nextStep"></table-data>
                 </v-stepper-content>
