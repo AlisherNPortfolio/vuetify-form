@@ -1,151 +1,144 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
+<v-container>
+    <v-row class="mb-6" justify="center" no-gutters>
+        <v-col cols="12" lg="5" md="7">
+            <v-stepper v-model="formStep" vertical>
+                <v-stepper-step step="1" v-bind:complete="formStep > 1">
+                    Umumiy
+                    <small>Umumiy ma'lumotlar</small>
+                </v-stepper-step>
+                <v-stepper-content step="1">
+                    <v-card class="mb-12" flat>
+                        <general-data
+                          :form="form"
+                          :rules="rules"
+                          @next="nextStep"
+                        ></general-data>
+                    </v-card>
+                </v-stepper-content>
+                <v-stepper-step step="2" v-bind:complete="formStep > 2">
+                  Tashkilot
+                  <small>Tashkilot ma'lumotlari</small>
+                </v-stepper-step>
+                <v-stepper-content step="2">
 
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
+                    <organization-data
+                      :form="form"
+                      :rules="rules"
+                      @next="nextStep"
+                    ></organization-data>
+                </v-stepper-content>
+                <v-stepper-step step="3" v-bind:complete="formStep > 3">
+                  Qo'shimcha
+                  <small>Qo'shimcha ma'lumotlar</small>
+                </v-stepper-step>
+                <v-stepper-content step="3">
+                  <additional-data
+                    :form="form"
+                    :rules="rules"
+                    @next="nextStep"
+                  ></additional-data>
+                </v-stepper-content>
+                <v-stepper-step step="4">View setup instructions</v-stepper-step>
+                <v-stepper-content step="4">
+                  <table-data :form="form" :rules="rules" @next="nextStep"></table-data>
+                </v-stepper-content>
+            </v-stepper>
+        </v-col>
     </v-row>
-  </v-container>
+</v-container>
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
+import GeneralData from '@/components/GeneralData';
+import OrganizationData from '@/components/OrganizationData';
+import AdditionalData from '@/components/AdditionalData';
+import TableData from '@/components/TableData';
 
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
+export default {
+  components: { GeneralData, OrganizationData, AdditionalData, TableData },
+    name: 'AppForm',
+    comments: {
+      GeneralData
+    },
+    data: (vm) => ({
+        formStep: 4,
+        formLoading: false,
+        form: {
+          inn: null,
+          regionId: null,
+          address: null,
+          director: null,
+          orgType: null,
+          establishedDate: null,
+          studentGroup: null,
+          isRepaired: false,
+          accounter: null,
+          orgLegalType: null,
+          ifut: null,
+          website: null,
+          status: null,
+          power: null,
+          orgFullName: null,
+          phone: null,
+          economist: null,
+          managementType: null,
+          ownerOrg: null,
+          documents: null,
+          coefficient: null
         },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
+        rules: {
+          requiredRule: [(v) => !!v || "Bu maydonni to'ldirish majburiy"],
+          checkIndex: [(v) => (!!v && String(v).length == 6) || "Indeks qiymati uzunligi xato"],
+          checkAccounter: [(v) => vm.checkMinMaxLen(v, 2, 20)],
+          checkWebsite: [(v) => vm.checkWebsite(v)],
+          checkPhone: [(v) => vm.checkPhone(v)],
+          numberField: [(v) => (!!v && typeof v == 'number') || "Maydon faqat son qabul qiladi"]
+        }
     }),
-  }
+    methods: {
+      nextStep(e) {
+        if (e.form.validate()) {
+          this.formLoading = true;
+          setTimeout(() => {
+            this.formLoading = false;
+            this.formStep = e.step;
+            this.form = {...this.form, ...e.data};
+            e.form.reset();
+          }, 1000)
+        }
+      },
+      checkMinMaxLen(val, minLen, maxLen) {
+        return (!!val && String(val).length >= minLen && String(val).length <= maxLen) ||
+              `Maydon qiymati uzunligi ${minLen} va ${maxLen} oralig'ida bo'lishi kerak`;
+      },
+      checkWebsite(val) {
+        const reg = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+
+        return (!!val && !!val.match(new RegExp(reg))) || "Websayt kiritmadingiz";
+      },
+      checkPhone(val) {
+        const reg = /^\+998([- ])?(90|91|93|94|95|98|99|33|97|71)([- ])?(\d{3})([- ])?(\d{2})([- ])?(\d{2})$/
+        return (!!val && !!val.match(new RegExp(reg))) || "Telefon nomeri xato kiritilgan";
+      }
+    }
+}
 </script>
+
+<style scoped>
+.search-btn {
+    height: 39px !important;
+    background-color: rgb(24, 103, 192) !important;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+</style>
+<style>
+.v-icon.v-icon {
+  font-size: 26px!important;
+}
+
+.v-icon.mdi-close {
+  font-size: 24px!important;
+}
+</style>
