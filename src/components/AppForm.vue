@@ -62,7 +62,7 @@ export default {
       GeneralData
     },
     data: (vm) => ({
-        formStep: 4,
+        formStep: 1,
         formLoading: false,
         form: {
           inn: null,
